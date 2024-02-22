@@ -41,7 +41,6 @@ public class Hangman {
                 letterInSecretWord = true;
             }
         }
-
         if (!letterInSecretWord) {
             if (wrongGuesses.contains(lowerCase)) {
                 alreadyGuessed = true;
@@ -50,30 +49,39 @@ public class Hangman {
                 guessesLeft--;
             }
         }
-
         return letterInSecretWord && !alreadyGuessed;
     }
 
     public void drawGuessedLetters(PApplet p) {
-        // Draw guessed letters
+       
         p.textSize(32);
         for (int i = 0; i < guessedLetters.length; i++) {
-            // Draw guessed letter in the center of the screen
-            p.text(guessedLetters[i], p.width / 2 + 20 * i - guessedLetters.length * 20 / 2, p.height / 2);
+            
+            if (guessedLetters[i] != '_') {
+                p.text(guessedLetters[i], p.width / 2 + 20 * i - guessedLetters.length * 20 / 2, p.height / 2);
+            } else {
+                p.text("_", p.width / 2 + 20 * i - guessedLetters.length * 20 / 2, p.height / 2);
+            }
+        }
+        
+        
+        p.text("Wrong guesses: ", 50, 50);
+        int offset = 0;
+        for (char letter : wrongGuesses) {
+            p.text(letter + " ", 50 + offset, 80);
+            offset += 20;
         }
     
-        // Draw remaining guesses in the upper right corner
         p.textSize(16);
         p.text("Guesses remaining: " + guessesLeft, p.width - 200, 50);
     
-        // Check for game over
         if (!isAlive()) {
-            // Display game over message
             p.textSize(32);
-            p.fill(255, 0, 0); // Set text color to red
+            p.fill(255, 0, 0);
             p.text("Game Over", p.width / 2 - 100, p.height / 2 + 50);
         }
     }
+    
     
     public boolean isAlive(){
         return guessesLeft > 0;
