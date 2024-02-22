@@ -65,12 +65,19 @@ public class Hangman {
         // Draw remaining guesses in the upper right corner
         p.textSize(16);
         p.text("Guesses remaining: " + guessesLeft, p.width - 200, 50);
+    
+        // Check for game over
+        if (!isAlive()) {
+            // Display game over message
+            p.textSize(32);
+            p.fill(255, 0, 0); // Set text color to red
+            p.text("Game Over", p.width / 2 - 100, p.height / 2 + 50);
+        }
     }
-
+    
     public boolean isAlive(){
         return guessesLeft > 0;
     }
-
 
     public boolean winGame() {
         for (char letter : guessedLetters) {
