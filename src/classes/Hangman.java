@@ -54,19 +54,23 @@ public class Hangman {
         return letterInSecretWord && !alreadyGuessed;
     }
 
-    public void drawGuessedLetters(PApplet p){
-        //draw word on screen
+    public void drawGuessedLetters(PApplet p) {
+        // Draw guessed letters
         p.textSize(32);
-        for (int i = 0; i < guessedLetters.length; i++){
-            //draw guessed letter in center of the screen
-            p.text(guessedLetters[i], p.width/2+20*i-
-                    guessedLetters.length*20/2, p.height/2);
+        for (int i = 0; i < guessedLetters.length; i++) {
+            // Draw guessed letter in the center of the screen
+            p.text(guessedLetters[i], p.width / 2 + 20 * i - guessedLetters.length * 20 / 2, p.height / 2);
         }
+    
+        // Draw remaining guesses in the upper right corner
+        p.textSize(16);
+        p.text("Guesses remaining: " + guessesLeft, p.width - 200, 50);
     }
 
     public boolean isAlive(){
         return guessesLeft > 0;
     }
+
 
     public boolean winGame() {
         for (char letter : guessedLetters) {
